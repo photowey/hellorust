@@ -1,10 +1,10 @@
 /*
  * @Author: photowey
- * @Date: 2022-04-10 16:28:50
- * @LastEditTime: 2022-04-10 16:55:39
+ * @Date: 2022-04-10 16:49:36
+ * @LastEditTime: 2022-04-10 16:49:38
  * @LastEditors: photowey
- * @Description: main.rs
- * @FilePath: /hellorust/src/main.rs
+ * @Description: mod.rs
+ * @FilePath: /hellorust/src/cmd/mod.rs
  * Copyright (c) 2022 by photowey<photowey@gmail.com>, All Rights Reserved.
  */
 
@@ -44,20 +44,4 @@
  *                不见满街漂亮妹，哪个归得程序员？
  */
 
-/*
- * @Author: photowey
- * @Date: 2022-04-09 20:29:14
- * @LastEditTime: 2022-04-10 11:06:03
- * @LastEditors: photowey
- * @Description: main.rs
- * @FilePath: /hello-rust/src/main.rs
- * Copyright (c) 2022 by photowey<photowey@gmail.com>, All Rights Reserved.
- */
-
-#![allow(unused)]
-
-mod cmd;
-
-fn main() {
-    cmd::cmder::run();
-}
+pub mod cmder;

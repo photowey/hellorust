@@ -1,7 +1,7 @@
 /*
  * @Author: photowey
  * @Date: 2022-04-10 16:17:09
- * @LastEditTime: 2022-04-10 16:23:50
+ * @LastEditTime: 2022-04-10 16:44:21
  * @LastEditors: photowey
  * @Description: integration_test.rs
  * @FilePath: /hellorust/tests/integration_test.rs
@@ -46,7 +46,19 @@
 
 use hellorust;
 
+mod common;
+
 #[test]
 fn test_add_two() {
     assert_eq!(4, hellorust::add_two(2));
+
+    // $ cargo test --test integration_test
+}
+
+#[test]
+fn test_common_fn() {
+    assert_eq!(1, common::helpers::setup());
+
+    // $ cargo test --test integration_test
+    // $ cargo test --test integration_test -- --show-output
 }
