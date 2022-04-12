@@ -1,10 +1,10 @@
 /*
  * @Author: photowey
- * @Date: 2022-04-10 11:03:24
- * @LastEditTime: 2022-04-10 16:19:19
- * @LastEditors: photowey
- * @Description: lib.rs
- * @FilePath: /hello-rust/src/lib.rs
+ * @Date: 2022-04-11 14:26:05
+ * @LastEditTime: 2022-04-11 14:26:05
+ * @LastEditors: weichangjun
+ * @Description: mod.rs
+ * @FilePath: /hellorust/src/lifecycle/mod.rs
  * Copyright (c) 2022 by photowey<photowey@gmail.com>, All Rights Reserved.
  */
 
@@ -44,64 +44,4 @@
  *                不见满街漂亮妹，哪个归得程序员？
  */
 
-#![allow(unused)]
-
-pub mod hello;
-pub mod grammar;
 pub mod lifecycle;
-
-mod front_of_house {
-    pub mod hosting {
-        pub fn add_to_waitlists() {}
-        fn seat_at_table() {}
-    }
-
-    pub mod serving {
-        fn take_order() {}
-        fn serve_order() {}
-        pub fn take_payment() {}
-    }
-}
-
-pub use crate::front_of_house::hosting;
-
-pub fn eat_a_restaurant() {
-    crate::front_of_house::hosting::add_to_waitlists();
-    front_of_house::hosting::add_to_waitlists();
-
-    hosting::add_to_waitlists();
-}
-
-pub fn say_hi() -> String {
-    let words = hello::greeting::say_hello(String::from("sharkchili"));
-    println!("{}", words);
-    return words;
-}
-
-pub fn add_two(x: i32) -> i32 {
-    inner_add_two(x, 2)
-}
-
-fn inner_add_two(x: i32, y: i32) -> i32 {
-    x + y
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_say_hi() {
-        let words = say_hi();
-
-        assert_eq!(words, "say hello to: sharkchili");
-    }
-
-    // $ cargo test -- --show-output
-
-    #[test]
-    fn test_add_two() {
-        assert_eq!(4, add_two(2));
-        assert_eq!(4, inner_add_two(2, 2));
-    }
-}

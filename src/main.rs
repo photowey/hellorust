@@ -44,16 +44,6 @@
  *                不见满街漂亮妹，哪个归得程序员？
  */
 
-/*
- * @Author: photowey
- * @Date: 2022-04-09 20:29:14
- * @LastEditTime: 2022-04-10 11:06:03
- * @LastEditors: photowey
- * @Description: main.rs
- * @FilePath: /hello-rust/src/main.rs
- * Copyright (c) 2022 by photowey<photowey@gmail.com>, All Rights Reserved.
- */
-
 #![allow(unused)]
 
 mod cmd;

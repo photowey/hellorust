@@ -1,8 +1,8 @@
 /*
  * @Author: photowey
  * @Date: 2022-04-10 16:46:38
- * @LastEditTime: 2022-04-10 16:46:39
- * @LastEditors: photowey
+ * @LastEditTime: 2022-04-11 14:06:39
+ * @LastEditors: weichangjun
  * @Description: grammar.rs
  * @FilePath: /hellorust/src/grammar/grammar.rs
  * Copyright (c) 2022 by photowey<photowey@gmail.com>, All Rights Reserved.
@@ -43,6 +43,8 @@
  *                别人笑我忒疯癫，我笑自己命太贱；
  *                不见满街漂亮妹，哪个归得程序员？
  */
+
+use crate::hello;
 
 #[derive(Debug)]
 struct Rectangle {
@@ -87,7 +89,7 @@ impl Message {
 
 enum Coin {
     Penny,
-    Nickkel,
+    Nickel,
     Dime,
     Quarter,
 }
@@ -96,7 +98,7 @@ impl Coin {
     fn value_in_coin(coin: Coin) -> u8 {
         match coin {
             Coin::Penny => 1 << 1,
-            Coin::Nickkel => 1 << 2,
+            Coin::Nickel => 1 << 2,
             Coin::Dime => 1 << 3,
             Coin::Quarter => 1 << 4,
         }
@@ -169,6 +171,6 @@ fn enum_fx() {
 }
 
 fn mod_fx() {
-    // let words = hello::greeting::say_hello(String::from("sharkchili"));
-    // println!("{}", words)
+    let words = hello::greeting::say_hello(String::from("sharkchili"));
+    println!("{}", words)
 }

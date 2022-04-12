@@ -1,10 +1,10 @@
 /*
  * @Author: photowey
- * @Date: 2022-04-10 11:47:08
- * @LastEditTime: 2022-04-10 16:48:54
+ * @Date: 2022-04-10 11:40:13
+ * @LastEditTime: 2022-04-10 12:47:11
  * @LastEditors: photowey
- * @Description: hello.rs
- * @FilePath: /hellorust/src/hello.rs
+ * @Description: mod.rs
+ * @FilePath: /hello-rust/src/hello/mod.rs
  * Copyright (c) 2022 by photowey<photowey@gmail.com>, All Rights Reserved.
  */
 
