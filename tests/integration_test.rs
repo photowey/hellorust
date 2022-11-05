@@ -45,6 +45,7 @@
  */
 
 use hellorust;
+use hellorust::structt::structor;
 
 mod common;
 
@@ -66,7 +67,8 @@ fn test_common_fn() {
 #[test]
 fn test_first_world() {
     let word1 = String::from("Hello world");
-    let hello2 = hellorust::slicee::slicer::first_world(&word1);
+    // crate::hellorust
+    let hello2 = crate::hellorust::slicee::slicer::first_world(&word1);
     let hello3 = hellorust::slicee::slicer::first_world_slice(&word1[..]);
     assert_eq!(("Hello"), hello2);
     assert_eq!(("Hello"), hello3);
@@ -86,7 +88,7 @@ std::fmt::Debug
  */
 #[test]
 fn test_structor() {
-    let rect = hellorust::structt::structor::Rectangle {
+    let rect = structor::Rectangle {
         width: 30,
         height: 50,
     };
@@ -94,7 +96,7 @@ fn test_structor() {
     // 打印结构体
     println!("{:#?}", rect);
 
-    let area = hellorust::structt::structor::area(&rect);
+    let area = structor::area(&rect);
     assert_eq!(1500, area);
 
     // 调用方法
@@ -102,7 +104,7 @@ fn test_structor() {
     assert_eq!(1500, area2);
 
     // 调用函数
-    let square = hellorust::structt::structor::Rectangle::square(20);
+    let square = structor::Rectangle::square(20);
     let yes = rect.can_hold(&square);
     assert_eq!(true, yes);
 }

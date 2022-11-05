@@ -44,6 +44,21 @@
  *                不见满街漂亮妹，哪个归得程序员？
  */
 
+/**
+ 1.Crate 类型
+- binary
+- library
+
+2.Crate Root
+- 是源代码文件
+- Rust 编译器从这里开始, 组成 Crate 的根 Module
+
+3.Package
+- 包含 1 个 Cargo.toml, 它表述了如何构建这写 Crates
+- 只能包含 0-1 个 library crate
+- 可以包含任意数量的 binary crate
+- 但必须至少包含一个 crate (library, binary)
+ */
 use crate::hello;
 
 #[derive(Debug)]
