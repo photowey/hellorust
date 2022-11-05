@@ -62,3 +62,47 @@ fn test_common_fn() {
     // $ cargo test --test integration_test
     // $ cargo test --test integration_test -- --show-output
 }
+
+#[test]
+fn test_first_world() {
+    let word1 = String::from("Hello world");
+    let hello2 = hellorust::slicee::slicer::first_world(&word1);
+    let hello3 = hellorust::slicee::slicer::first_world_slice(&word1[..]);
+    assert_eq!(("Hello"), hello2);
+    assert_eq!(("Hello"), hello3);
+
+    let word2 = "Hello world";
+    let hello4 = hellorust::slicee::slicer::first_world_slice(word2);
+    assert_eq!(("Hello"), hello4);
+}
+
+/**
+std::fmt::Display
+std::fmt::Debug
+#[derive(Debug)]
+/// # ---- debug 调试模式
+{:?}
+{:#?}
+ */
+#[test]
+fn test_structor() {
+    let rect = hellorust::structt::structor::Rectangle {
+        width: 30,
+        height: 50,
+    };
+
+    // 打印结构体
+    println!("{:#?}", rect);
+
+    let area = hellorust::structt::structor::area(&rect);
+    assert_eq!(1500, area);
+
+    // 调用方法
+    let area2 = rect.area();
+    assert_eq!(1500, area2);
+
+    // 调用函数
+    let square = hellorust::structt::structor::Rectangle::square(20);
+    let yes = rect.can_hold(&square);
+    assert_eq!(true, yes);
+}
