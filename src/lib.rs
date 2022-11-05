@@ -46,13 +46,14 @@
 
 #![allow(unused)]
 
-pub mod hello;
 pub mod grammar;
+pub mod hello;
 pub mod lifecycle;
+pub mod traitt;
 
 mod front_of_house {
     pub mod hosting {
-        pub fn add_to_waitlists() {}
+        pub fn add_to_wait_lists() {}
         fn seat_at_table() {}
     }
 
@@ -66,10 +67,10 @@ mod front_of_house {
 pub use crate::front_of_house::hosting;
 
 pub fn eat_a_restaurant() {
-    crate::front_of_house::hosting::add_to_waitlists();
-    front_of_house::hosting::add_to_waitlists();
+    crate::front_of_house::hosting::add_to_wait_lists();
+    front_of_house::hosting::add_to_wait_lists();
 
-    hosting::add_to_waitlists();
+    hosting::add_to_wait_lists();
 }
 
 pub fn say_hi() -> String {

@@ -106,12 +106,12 @@ impl Coin {
 }
 
 fn loop_fx() {
-    let mut connter = 0;
+    let mut counter = 0;
 
     let result = loop {
-        connter += 1;
-        if connter == 11 {
-            break connter * 2;
+        counter += 1;
+        if counter == 11 {
+            break counter * 2;
         }
     };
 

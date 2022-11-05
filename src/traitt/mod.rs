@@ -1,14 +1,4 @@
 /*
- * @Author: photowey
- * @Date: 2022-04-10 14:17:46
- * @LastEditTime: 2022-04-10 15:08:43
- * @LastEditors: photowey
- * @Description: traitt.rs
- * @FilePath: /hello-rust/src/traitt/traitt.rs
- * Copyright (c) 2022 by photowey<photowey@gmail.com>, All Rights Reserved.
- */
-
-/*
  *                        _oo0oo_
  *                       o8888888o
  *                       88" . "88
@@ -44,38 +34,4 @@
  *                不见满街漂亮妹，哪个归得程序员？
  */
 
-#![allow(unused)]
-
-pub trait Summary {
-    fn summarize(&self) -> String;
-}
-
-pub struct NewsArticle {
-    pub headline: String,
-    pub location: String,
-    pub author: String,
-    pub content: String,
-}
-
-impl Summary for NewsArticle {
-    fn summarize(&self) -> String {
-        format!("{}, by {} ({})", self.headline, self.author, self.location);
-
-        return String::from("NewsArticle");
-    }
-}
-
-pub struct Tweet {
-    pub username: String,
-    pub content: String,
-    pub reply: String,
-    pub retweet: String,
-}
-
-impl Summary for Tweet {
-    fn summarize(&self) -> String {
-        format!("{}: {}", self.username, self.content);
-
-        return String::from("Tweet");
-    }
-}
+pub mod traitt;
