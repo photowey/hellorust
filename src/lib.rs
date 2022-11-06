@@ -48,6 +48,8 @@
 
 pub use crate::front_of_house::hosting;
 
+pub mod closure;
+pub mod generic;
 pub mod grammar;
 pub mod hello;
 pub mod lifecycle;
@@ -90,6 +92,7 @@ fn inner_add_two(x: i32, y: i32) -> i32 {
     x + y
 }
 
+/// -- 单元测试
 #[cfg(test)]
 mod tests {
     use super::*;

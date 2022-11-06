@@ -106,5 +106,15 @@ fn test_structor() {
     // 调用函数
     let square = structor::Rectangle::square(20);
     let yes = rect.can_hold(&square);
-    assert_eq!(true, yes);
+    assert!(yes);
+}
+
+#[test]
+fn test_generic() {
+    let str_list = vec![String::from("Hello"), String::from("World")];
+    let result = hellorust::generic::generic::largest(&str_list);
+
+    println!("The largest word is {}", result);
+
+    assert_eq!("World", result);
 }
