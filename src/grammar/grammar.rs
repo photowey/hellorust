@@ -58,6 +58,11 @@
 - 只能包含 0-1 个 library crate
 - 可以包含任意数量的 binary crate
 - 但必须至少包含一个 crate (library, binary)
+
+- 4.所有权
+- Rust 中的每一个值都有一个 所有者（owner）。
+- 值在任一时刻有且只有一个所有者。
+- 当所有者（变量）离开作用域，这个值将被丢弃。
  */
 use crate::hello;
 
