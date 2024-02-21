@@ -36,11 +36,14 @@
 
 // ----------------------------------------------------------------
 
+use std::sync::mpsc::Receiver;
 use std::sync::{Arc, Mutex};
 
 use lazy_static::lazy_static;
 
 pub mod threadpool;
+
+// ----------------------------------------------------------------
 
 // ----------------------------------------------------------------
 
@@ -71,6 +74,8 @@ pub fn determine_cpu_cores() -> usize {
     num_cpus::get()
 }
 
+// ----------------------------------------------------------------
+
 pub fn thread_pool() -> Arc<Mutex<Option<threadpool::ThreadPool>>> {
     let mut instance = THREAD_POOL_INSTANCE.lock().unwrap();
     if instance.is_none() {
@@ -78,4 +83,21 @@ pub fn thread_pool() -> Arc<Mutex<Option<threadpool::ThreadPool>>> {
         *instance = Some(threadpool::ThreadPool::new(cores));
     }
     Arc::clone(&THREAD_POOL_INSTANCE)
+}
+
+// ----------------------------------------------------------------
+
+pub fn execute<F>(fx: F)
+where
+    F: FnOnce() + Send + 'static,
+{
+    thread_pool().lock().unwrap().as_ref().unwrap().execute(fx);
+}
+
+pub fn submit<F, R>(fx: F) -> Receiver<R>
+where
+    F: FnOnce() -> R + Send + 'static,
+    R: Send + 'static,
+{
+    thread_pool().lock().unwrap().as_ref().unwrap().submit(fx)
 }

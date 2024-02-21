@@ -48,7 +48,7 @@
 
 // ----------------------------------------------------------------
 
-use crate::threadpool::{thread_pool, Callable, Runnable, THREAD_POOL};
+use crate::threadpool::{Callable, Runnable};
 
 mod cmd;
 mod threadpool;
@@ -82,15 +82,17 @@ fn main() {
     run_thread_pool();
     println!("----|------------------------------------------------------------");
     multi_thread_call();
+    println!("----|------------------------------------------------------------");
+    multi_thread_fx();
 }
 
 fn run_thread_pool() {
-    THREAD_POOL.execute(|| {
+    threadpool::THREAD_POOL.execute(|| {
         let worker = HelloRunnable;
         worker.run();
     });
 
-    let result_receiver = THREAD_POOL.submit(|| {
+    let result_receiver = threadpool::THREAD_POOL.submit(|| {
         let worker = HelloCallable;
         worker.call()
     });
@@ -100,12 +102,37 @@ fn run_thread_pool() {
 }
 
 fn multi_thread_call() {
-    thread_pool().lock().unwrap().as_ref().unwrap().execute(|| {
+    threadpool::thread_pool()
+        .lock()
+        .unwrap()
+        .as_ref()
+        .unwrap()
+        .execute(|| {
+            let worker = HelloRunnable;
+            worker.run();
+        });
+
+    let result_receiver = threadpool::thread_pool()
+        .lock()
+        .unwrap()
+        .as_ref()
+        .unwrap()
+        .submit(|| {
+            let worker = HelloCallable;
+            worker.call()
+        });
+
+    let result = result_receiver.recv().unwrap();
+    println!("multi: result from Callable: {}", result);
+}
+
+fn multi_thread_fx() {
+    threadpool::execute(|| {
         let worker = HelloRunnable;
         worker.run();
     });
 
-    let result_receiver = thread_pool().lock().unwrap().as_ref().unwrap().submit(|| {
+    let result_receiver = threadpool::submit(|| {
         let worker = HelloCallable;
         worker.call()
     });

@@ -40,6 +40,8 @@ use std::sync::mpsc::{Receiver, Sender};
 use std::sync::{mpsc, Arc, Mutex};
 use std::thread;
 
+// ----------------------------------------------------------------
+
 pub struct Worker {
     id: usize,
     thread: Option<thread::JoinHandle<()>>,
