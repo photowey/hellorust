@@ -8,3 +8,5 @@ version = "1.0.0"
 
 [dependencies]
 rand = "^0.8"
+lazy_static = "1.4"
+num_cpus = "1.16.0"

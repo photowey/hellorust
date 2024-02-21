@@ -46,8 +46,70 @@
 
 #![allow(unused)]
 
+// ----------------------------------------------------------------
+
+use crate::threadpool::{thread_pool, Callable, Runnable, THREAD_POOL};
+
 mod cmd;
+mod threadpool;
+
+// ----------------------------------------------------------------
+
+// ----------------------------------------------------------------
+
+struct HelloRunnable;
+
+impl Runnable for HelloRunnable {
+    fn run(&self) {
+        println!("Hello from Runnable");
+    }
+}
+
+struct HelloCallable;
+
+impl Callable<i32> for HelloCallable {
+    fn call(&self) -> i32 {
+        42
+    }
+}
+
+// ----------------------------------------------------------------
 
 fn main() {
     cmd::cmder::run();
+
+    println!("----|------------------------------------------------------------");
+    run_thread_pool();
+    println!("----|------------------------------------------------------------");
+    multi_thread_call();
+}
+
+fn run_thread_pool() {
+    THREAD_POOL.execute(|| {
+        let worker = HelloRunnable;
+        worker.run();
+    });
+
+    let result_receiver = THREAD_POOL.submit(|| {
+        let worker = HelloCallable;
+        worker.call()
+    });
+
+    let result = result_receiver.recv().unwrap();
+    println!("Result from Callable: {}", result);
+}
+
+fn multi_thread_call() {
+    thread_pool().lock().unwrap().as_ref().unwrap().execute(|| {
+        let worker = HelloRunnable;
+        worker.run();
+    });
+
+    let result_receiver = thread_pool().lock().unwrap().as_ref().unwrap().submit(|| {
+        let worker = HelloCallable;
+        worker.call()
+    });
+
+    let result = result_receiver.recv().unwrap();
+    println!("multi: result from Callable: {}", result);
 }
