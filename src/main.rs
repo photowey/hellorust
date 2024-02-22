@@ -51,7 +51,9 @@
 use crate::threadpool::{Callable, Runnable};
 
 mod cmd;
+mod tester;
 mod threadpool;
+mod threadpools;
 
 // ----------------------------------------------------------------
 
@@ -79,11 +81,13 @@ fn main() {
     cmd::cmder::run();
 
     println!("----|------------------------------------------------------------");
-    run_thread_pool();
+    //run_thread_pool();
     println!("----|------------------------------------------------------------");
-    multi_thread_call();
+    //multi_thread_call();
     println!("----|------------------------------------------------------------");
-    multi_thread_fx();
+    //multi_thread_fx();
+    println!("----|------------------------------------------------------------");
+    multi_thread_task();
 }
 
 fn run_thread_pool() {
@@ -92,7 +96,7 @@ fn run_thread_pool() {
         worker.run();
     });
 
-    let result_receiver = threadpool::THREAD_POOL.submit(|| {
+    let result_receiver = threadpool::THREAD_POOL.submit(move || {
         let worker = HelloCallable;
         worker.call()
     });
@@ -139,4 +143,8 @@ fn multi_thread_fx() {
 
     let result = result_receiver.recv().unwrap();
     println!("multi: result from Callable: {}", result);
+}
+
+fn multi_thread_task() {
+    tester::on_test();
 }
