@@ -92,6 +92,17 @@ fn inner_add_two(x: i32, y: i32) -> i32 {
     x + y
 }
 
+fn capitalize_first(input: &str) -> String {
+    let mut c = input.chars();
+    match c.next() {
+        None => String::new(),
+        Some(first) => {
+            let capitalized = first.to_uppercase().collect::<String>();
+            capitalized + c.as_str()
+        }
+    }
+}
+
 /// -- 单元测试
 #[cfg(test)]
 mod tests {
@@ -110,5 +121,11 @@ mod tests {
     fn test_add_two() {
         assert_eq!(4, add_two(2));
         assert_eq!(4, inner_add_two(2, 2));
+    }
+
+    #[test]
+    fn test_capitalize_first() {
+        let x = capitalize_first("hello");
+        assert_eq!("Hello", x);
     }
 }
