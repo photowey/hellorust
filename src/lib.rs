@@ -53,6 +53,7 @@ pub mod generic;
 pub mod grammar;
 pub mod hello;
 pub mod lifecycle;
+mod ppnet;
 pub mod slicee;
 pub mod structt;
 pub mod traitt;
