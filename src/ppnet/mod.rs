@@ -38,27 +38,42 @@
 
 extern crate ifcfg;
 
+use std::error::Error;
+use std::fmt;
+
 use ifcfg::IfCfg;
 
-fn ifcfg_local_interfaces() -> Result<Vec<u8>, String> {
-    match IfCfg::get() {
-        Ok(interfaces) => {
-            for interface in interfaces {
-                if !interface.name.contains("Loopback") {
-                    let rvt: Vec<u8> = interface
-                        .mac
-                        .split("-")
-                        .map(|hex| u8::from_str_radix(hex, 16).expect("Invalid mac address"))
-                        .collect();
+#[derive(Debug)]
+pub struct InterfaceError(String);
 
-                    return Ok(rvt);
-                }
-            }
-
-            Err("Loopback".to_string())
-        }
-        _ => Err("Not Found".to_string()),
+impl fmt::Display for InterfaceError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}", self.0)
     }
+}
+
+impl Error for InterfaceError {}
+
+fn ifcfg_local_interfaces() -> Result<Vec<u8>, Box<dyn Error>> {
+    let interfaces = match IfCfg::get() {
+        Ok(interfaces) => interfaces,
+        Err(err) => return Err(Box::new(InterfaceError(format!("IfCfgError: {:?}", err)))),
+    };
+
+    let mac_bytes = interfaces
+        .iter()
+        .find(|interface| !interface.name.contains("Loopback"))
+        .map(|interface| {
+            interface
+                .mac
+                .split('-')
+                .map(|hex| u8::from_str_radix(hex, 16))
+                .collect::<Result<Vec<u8>, _>>()
+                .map_err(|err| Box::new(err) as Box<dyn Error>)
+        })
+        .ok_or_else(|| Box::new(InterfaceError("Loopback not found".to_string())))??;
+
+    Ok(mac_bytes)
 }
 
 #[cfg(test)]
@@ -70,11 +85,15 @@ mod test {
         let octets = ifcfg_local_interfaces().unwrap();
         println!("the interface mac bytes is: {:?}", octets);
 
+        // @formatter:off
         let index = octets.len() - 2;
-        let id = ((0x000000FF & (octets[index] as u64))
-            | (0x0000FF00 & ((octets[index + 1] as u64) << 8)))
-            >> 6;
+        let x = ((0x000000FF & (octets[index] as u64))
+            | (0x0000FF00 & ((octets[index + 1] as u64) << 8)));
+        // @formatter:on
+        println!("A | B is: {:?} - {:064b}", x, x);
+        let id = x >> 6;
 
-        println!("the interface id is: {:?}", id);
+        println!("the interface id is: {:?} -  - {:064b}", id, id);
+        println!("----------------------------------------------------------------");
     }
 }
