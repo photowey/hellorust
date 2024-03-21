@@ -1,3 +1,5 @@
+use redis::AsyncCommands;
+
 use super::*;
 
 #[test]
@@ -24,4 +26,26 @@ fn test_capitalize_first() {
 #[test]
 fn test_env_run() {
     env::run();
+}
+
+#[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+async fn test_tokio_async() -> redis::RedisResult<()> {
+    let client = redis::Client::open("redis://:root@192.168.19.250:6379/5").unwrap();
+    let mut con = client.get_multiplexed_async_connection().await?;
+
+    con.set("key1", b"foo").await?;
+
+    redis::cmd("SET")
+        .arg(&["key2", "bar"])
+        .query_async(&mut con)
+        .await?;
+
+    let result: Vec<Option<Vec<u8>>> = redis::cmd("MGET")
+        .arg(&["key1", "key2"])
+        .query_async(&mut con)
+        .await?;
+
+    assert_eq!(result, vec![Some(b"foo".to_vec()), Some(b"bar".to_vec())]);
+
+    Ok(())
 }
