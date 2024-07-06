@@ -49,3 +49,9 @@ async fn test_tokio_async() -> redis::RedisResult<()> {
 
     Ok(())
 }
+
+#[test]
+fn test_fib_fn() {
+    //macros::fib_fn();
+    macros::fib_macro();
+}

@@ -49,6 +49,7 @@
 pub use crate::front_of_house::hosting;
 
 pub mod closure;
+mod env;
 pub mod generic;
 pub mod grammar;
 pub mod hello;
@@ -57,8 +58,8 @@ mod ppnet;
 pub mod slicee;
 pub mod structt;
 pub mod traitt;
-mod env;
 
+mod macros;
 #[cfg(test)]
 mod tests;
 
