@@ -60,6 +60,7 @@ pub mod traitt;
 pub mod env;
 pub mod tree;
 
+mod macros;
 #[cfg(test)]
 mod tests;
 
