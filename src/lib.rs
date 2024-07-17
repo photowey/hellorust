@@ -57,7 +57,8 @@ mod ppnet;
 pub mod slicee;
 pub mod structt;
 pub mod traitt;
-mod env;
+pub mod env;
+pub mod tree;
 
 #[cfg(test)]
 mod tests;
