@@ -14,18 +14,18 @@ impl Node {
 
 /// 字典树
 #[derive(Default, Debug)]
-pub struct Dictionary {
+pub struct Trie {
     /// 根节点
     root: Box<Node>,
 }
 
-impl Dictionary {
+impl Trie {
     pub fn new() -> Self {
-        Dictionary::default()
+        Trie::default()
     }
 }
 
-impl Dictionary {
+impl Trie {
     pub fn insert(&mut self, word: &str) {
         let mut sentinel = &mut self.root;
 
@@ -66,7 +66,7 @@ mod test {
 
     #[test]
     fn test_trie() {
-        let mut trie = Dictionary::new();
+        let mut trie = Trie::new();
 
         trie.insert("rust");
         trie.insert("hello");
